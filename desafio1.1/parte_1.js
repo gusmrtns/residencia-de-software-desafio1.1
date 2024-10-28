@@ -113,6 +113,60 @@ class Triangulo {
     }
 }
 
+class Poligono {
+
+    #vertices = [];
+
+    constructor(vertices) {
+        if (vertices.length < 3) {
+            throw new Error("O número de vertices tem que ser maior ou igual a 3.");
+        }
+
+        vertices.forEach((vertice) => {
+            this.#vertices.push(vertice);
+        });
+
+    }
+
+    addVertice(v)  {
+
+        if (this.#vertices.some(vertice => Vertice.equals(vertice, v))) {
+            return false;
+        }
+
+        this.#vertices.push(v);
+
+        return true;
+
+    }
+    
+    getPerimetro() {
+        let perimetro = 0;
+    
+        for (let i = 0; i < this.#vertices.length; i++) {
+            
+            const verticeAtual = this.#vertices[i];
+            const proximoVertice = this.#vertices[(i + 1) % this.#vertices.length];
+    
+            
+            const distancia = Vertice.getDistancia(verticeAtual, proximoVertice);
+    
+            
+            perimetro += distancia;
+        }
+    
+        return perimetro;
+    }
+
+    getQtdVertices() {
+        return this.#vertices.length;
+    }
+    
+
+}
+
+
+
 
 var prompt = require('prompt-sync')();
 //
@@ -121,47 +175,87 @@ var prompt = require('prompt-sync')();
 
 // -------------------------------------------------------------------------
 
+// Testes com a classe Poligono
+
+// const vertices = [];
+// const numVertices = parseInt(prompt("Digite o número de vértices do polígono (>= 3): "));
+
+// for (let i = 1; i <= numVertices; i++) {
+//     const x = parseFloat(prompt(`Digite o valor de x para o vértice ${i}: `));
+//     const y = parseFloat(prompt(`Digite o valor de y para o vértice ${i}: `));
+//     vertices.push(new Vertice(x, y));
+// }
+
+// try {
+//     const poligono = new Poligono(vertices);
+
+//     console.log("\n--- Testando métodos da classe Poligono ---\n");
+
+//     // Testando getPerimetro()
+//     console.log("Perímetro:");
+//     console.log(poligono.getPerimetro());
+
+//     // Testando getQtdVertices()
+//     console.log("Quantidade de Vértices:");
+//     console.log(poligono.getQtdVertices());
+
+//     // Testando addVertice()
+//     const x = parseFloat(prompt("Digite o valor de x para um novo vértice: "));
+//     const y = parseFloat(prompt("Digite o valor de y para um novo vértice: "));
+//     const novoVertice = new Vertice(x, y);
+//     const adicionado = poligono.addVertice(novoVertice);
+//     console.log(`Novo vértice adicionado? ${adicionado}`);
+//     console.log("Nova quantidade de Vértices:");
+//     console.log(poligono.getQtdVertices());
+
+// } catch (error) {
+//     console.log(error.message);
+// }
+
+
+// -------------------------------------------------------------------------
+
 // testes com a classe Triangulo
 
-const triangulos = [];
+// const triangulos = [];
 
-for (let i = 1; i <= 3; i++) {
-    const vertices = [];
-    for (let j = 1; j <= 3; j++) {
-        const x = parseFloat(prompt(`Digite o valor de x para o vértice ${j} do triângulo ${i}: `));
-        const y = parseFloat(prompt(`Digite o valor de y para o vértice ${j} do triângulo ${i}: `));
-        vertices.push(new Vertice(x, y));
-    }
-    try {
-        triangulos.push(new Triangulo(vertices[0], vertices[1], vertices[2]));
-    } catch (error) {
-        console.log(error.message);
-        i--;
-    }
-}
+// for (let i = 1; i <= 3; i++) {
+//     const vertices = [];
+//     for (let j = 1; j <= 3; j++) {
+//         const x = parseFloat(prompt(`Digite o valor de x para o vértice ${j} do triângulo ${i}: `));
+//         const y = parseFloat(prompt(`Digite o valor de y para o vértice ${j} do triângulo ${i}: `));
+//         vertices.push(new Vertice(x, y));
+//     }
+//     try {
+//         triangulos.push(new Triangulo(vertices[0], vertices[1], vertices[2]));
+//     } catch (error) {
+//         console.log(error.message);
+//         i--;
+//     }
+// }
 
-console.log("\n--- Testando métodos da classe Triangulo ---\n");
+// console.log("\n--- Testando métodos da classe Triangulo ---\n");
 
-triangulos.forEach((triangulo, index) => {
-    console.log(`\nTriângulo ${index + 1}:`);
+// triangulos.forEach((triangulo, index) => {
+//     console.log(`\nTriângulo ${index + 1}:`);
 
-    // Testando getArea()
-    console.log("Área:");
-    console.log(triangulo.getArea());
+//     // Testando getArea()
+//     console.log("Área:");
+//     console.log(triangulo.getArea());
 
-    // Testando getPerimetro()
-    console.log("Perímetro:");
-    console.log(triangulo.getPerimetro());
+//     // Testando getPerimetro()
+//     console.log("Perímetro:");
+//     console.log(triangulo.getPerimetro());
 
-    // Testando getTipo()
-    console.log("Tipo:");
-    console.log(triangulo.getTipo());
+//     // Testando getTipo()
+//     console.log("Tipo:");
+//     console.log(triangulo.getTipo());
 
-    // Testando clone()
-    const clone = triangulo.clone();
-    console.log("Clone é igual ao original?");
-    console.log(triangulo.equals(clone));
-});
+//     // Testando clone()
+//     const clone = triangulo.clone();
+//     console.log("Clone é igual ao original?");
+//     console.log(triangulo.equals(clone));
+// });
 
 // -------------------------------------------------------------------------
 
